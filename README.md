@@ -13,7 +13,7 @@ The workflow covers four main waste streams:
 
 - municipal solid waste (MSW),
 - industrial waste (IW),
-- construction and demolition waste (CDW), and
+- construction & demolition waste (CDW)
 - agricultural waste (AW).
 
 The pipeline starts from harmonised country-year source data, builds WDI-based
