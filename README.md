@@ -94,6 +94,36 @@ or local runtime state in notebook metadata.
 
 ---
 
+## Data and artifact downloads
+
+Large release tables, source spreadsheets, preprocessing pipelines, and model
+artifacts are stored with Git Large File Storage (Git LFS). A Git LFS pointer
+file contains only `version`, `oid sha256`, and `size` lines; it is not the
+actual data table or model artifact.
+
+To obtain the real files, install Git LFS before cloning and pull the LFS
+objects after cloning:
+
+```bash
+git lfs install
+git clone https://github.com/iPFAS/Global-solid-waste-prediction.git
+cd Global-solid-waste-prediction
+git lfs pull
+```
+
+If any file still shows pointer text after cloning, run:
+
+```bash
+git lfs checkout
+```
+
+For GitHub source archives such as `Code -> Download ZIP`, the repository
+setting `Include Git LFS objects in archives` must be enabled by a repository
+maintainer. Without that GitHub archive setting, ZIP or tar downloads may
+contain pointer files instead of the large data and artifact files.
+
+---
+
 ## Environment setup
 
 The workflow uses two Python environments.
@@ -176,11 +206,13 @@ GPU execution is recommended for TabPFN-heavy notebooks.
 
 ## Quick start
 
-Clone the repository:
+Clone the repository with Git LFS enabled:
 
 ```bash
+git lfs install
 git clone https://github.com/iPFAS/Global-solid-waste-prediction.git
 cd Global-solid-waste-prediction
+git lfs pull
 ```
 
 Open JupyterLab or Jupyter Notebook from the repository root:
