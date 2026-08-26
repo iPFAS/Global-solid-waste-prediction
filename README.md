@@ -96,10 +96,15 @@ or local runtime state in notebook metadata.
 
 ## Data and artifact downloads
 
-Large release tables, source spreadsheets, preprocessing pipelines, and model
-artifacts are stored with Git Large File Storage (Git LFS). A Git LFS pointer
-file contains only `version`, `oid sha256`, and `size` lines; it is not the
-actual data table or model artifact.
+Large release tables, source spreadsheets, preprocessing pipelines, and the
+selected final Step7 models are stored with Git Large File Storage (Git LFS).
+Intermediate model-comparison and explainability `.joblib` artifacts from
+Steps 5 and 6 are intentionally kept in the maintainer's local working copy
+but are not bundled in the public release. The Step5 and Step6 notebooks
+regenerate those artifacts when run in order.
+
+A Git LFS pointer file contains only `version`, `oid sha256`, and `size` lines;
+it is not the actual data table or model artifact.
 
 To obtain the real files, install Git LFS before cloning and pull the LFS
 objects after cloning:
@@ -116,6 +121,19 @@ If any file still shows pointer text after cloning, run:
 ```bash
 git lfs checkout
 ```
+For GitHub source archives such as `Code -> Download ZIP`, keep
+`Include Git LFS objects in archives` disabled if you want the archive to
+contain code and pointer files without downloading the large LFS objects.
+Users who need the actual data should install Git LFS and run `git lfs pull`.
+Downloads of included LFS objects consume the repository owner's Git LFS
+bandwidth.
+
+Because the intermediate Step5 and Step6 model artifacts are not bundled,
+users who need to inspect or reproduce those analyses must run Step5 before
+Step6. The final Step7 models remain bundled because Step8 and Step9 use them
+directly. Artifact manifest tables may retain maintainer-side paths as
+provenance; those paths are not expected to resolve in a fresh clone until the
+corresponding notebook has regenerated the local artifacts.
 ---
 
 ## Environment setup
