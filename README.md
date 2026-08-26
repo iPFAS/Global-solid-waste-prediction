@@ -116,12 +116,6 @@ If any file still shows pointer text after cloning, run:
 ```bash
 git lfs checkout
 ```
-
-For GitHub source archives such as `Code -> Download ZIP`, the repository
-setting `Include Git LFS objects in archives` must be enabled by a repository
-maintainer. Without that GitHub archive setting, ZIP or tar downloads may
-contain pointer files instead of the large data and artifact files.
-
 ---
 
 ## Environment setup
